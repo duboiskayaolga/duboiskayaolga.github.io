@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Дубойсская</title>
+</head>
+<body>
+	<script type="text/javascript">
+
+	var arr = {};
+
+	var firstName = prompt("Введите вашу фамилию");
+	arr.name = firstName;
+
+	var secondName = prompt("Введите ваше имя");
+	arr.secondNam = secondName;
+
+	var thirdName = prompt("Введите ваше отчество");
+	arr.thirdNam = thirdName;
+
+
+
+	var age;
+	do {
+		age = parseFloat(prompt("Введите ваш возраст", "25"));
+	
+		arr.age = age;
+		console.log(arr);
+
+	} while (isNaN(age));
+
+
+	var pol = confirm("Ваш пол мужской? Если ваш пол женский - нажмите 'Отмена'");
+	arr.gender = (pol === true) ? "мужской" : "женский";
+
+
+	switch(arr.gender) {
+		case "мужской":
+			arr.pension = (arr.age >= 63) ? "да" : "нет";
+			break;
+		case "женский" :
+			arr.pension = (arr.age >= 60) ? "да" : "нет";
+			break;
+		default:
+			"Ошибка в введенных данных."
+	} 
+
+
+
+	alert(`
+		Ваше ФИО: ${arr.name} ${arr.secondNam} ${arr.thirdNam}
+		Ваш возраст в годах: ${arr.age}
+		Ваш возраст в днях: ${arr.age * 365}
+		Через 5 лет вам будет: ${arr.age + 5}
+		Ваш пол: ${arr.gender}
+		Вы на пенсии: ${arr.pension}`)
+ 
+
+
+	</script>
+
+	
+</body>
+</html>
