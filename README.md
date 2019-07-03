@@ -1,2 +1,3 @@
-# duboiskayaolga.github.io
-первый сайт
+# Дубойская Ольга
+duboiskayaolga.github.io
+Домашние задания
