@@ -9,14 +9,28 @@
 
 	var arr = {};
 
-	var firstName = prompt("Введите вашу фамилию");
-	arr.name = firstName;
+	do {
+		var firstName = prompt("Введите вашу фамилию");
+		arr.name = firstName;
 
-	var secondName = prompt("Введите ваше имя");
-	arr.secondNam = secondName;
 
-	var thirdName = prompt("Введите ваше отчество");
-	arr.thirdNam = thirdName;
+	} while (Boolean(firstName) != true )
+
+
+	do {
+		var secondName = prompt("Введите ваше имя");
+		arr.secondNam = secondName;
+
+
+	} while (Boolean(secondName) != true )
+
+
+	do {
+		var thirdName = prompt("Введите ваше отчество");
+		arr.thirdNam = thirdName;
+
+
+	} while (Boolean(thirdName) != true )
 
 
 
