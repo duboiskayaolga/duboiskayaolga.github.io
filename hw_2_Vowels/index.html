@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Дубойская</title>
+</head>
+<body>
+
+
+	<script>
+	"use strict";
+	
+
+(function() {
+	
+	var str = prompt("Введите текст");
+	var volwes = {а:'', о:'', и:'', е:'', ё:'', э:'', ы:'', у:'', ю:'', я:'', А:'', О:'', И:'', Е:'', Ё:'', Э:'', Ы:'', У:'', Ю:'', Я:''};
+
+
+	function lit(text, obj) {
+		var count = 0;
+
+		for (var i = 0; i < text.length; i++) {
+			if ( text.charAt([i]) in obj) {
+				count += 1;
+			}
+			count += 0;
+		}
+		return count;
+		console.log(count);
+
+
+	}
+
+	alert(`Во введенной строке находится количество букв: ${lit(str, volwes)}.`);
+	
+})();	
+	
+	
+	
+	</script>
+
+</body>
+</html>
