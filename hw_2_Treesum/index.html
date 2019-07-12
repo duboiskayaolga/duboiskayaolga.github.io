@@ -19,16 +19,19 @@
 		1, 8
 	];
 
-	function summ(arr, i = 0) {
-		if (isFinite(arr))
-			return Number(arr);
-		else if (typeof arr == "object" && i < arr.length) {
-			return summ(arr[i]) + summ(arr, i+1);
+	function summArr(arr) {
+		var result = 0;
+		for (var i = 0; i < arr.length; i++) {
+			
+			if (typeof arr[i] !== "object") {
+				result += arr[i];
+			}
+			result += summArr(arr[i]);
 		}
-		return 0;
+		return result;
 	}
 
-	console.log(summ(test));
+	console.log(summArr(test));
 
 })();	
 	
