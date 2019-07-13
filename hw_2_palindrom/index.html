@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		"use strict";
+
+(function() {
+
+		var str = prompt('Ввведите текст')
+
+		function polindrom(text) {
+			text = text.toLowerCase();
+			text = text.split('ъ').join('ь').split('ё').join('е').split(' ').join('');
+			text = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+			console.log(text);
+			// var res;
+			
+
+			for (var i = 0; i < text.length; i++) {
+				var j = text.length - 1;
+				if (text.charAt([i]) == text.charAt([j - i]) && text.length > 0) {
+					polindrom(text.slice(1, -1));
+				
+				} else 
+				alert (`Фраза не полидром`);
+				
+			}
+
+			return alert(`Фраза полидром`);
+
+			
+		}
+
+		console.log(polindrom(str));
+
+})();	
+
+		
+
+
+
+
+
+
+
+	</script>
+	
+</body>
+</html>
