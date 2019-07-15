@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		
+		function lit(text) {
+			var vowels = {а:'', о:'', и:'', е:'', ё:'', э:'', ы:'', у:'', ю:'', я:''};
+			
+			text = text.toLowerCase();
+			text = text.split('');
+			
+			var newArr = text.filter(function(text, i, arr) {
+							return text in vowels;
+						});
+
+			return newArr.length;
+		}
+
+
+		alert(`Во введенной строке находится количество букв: ${lit( prompt("Введите текст") )}.`);
+
+
+
+
+
+
+
+
+
+
+	</script>
+
+	
+</body>
+</html>

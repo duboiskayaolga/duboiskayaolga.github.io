@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		
+		
+
+
+	(function(){
+
+
+		
+		var str = prompt("Введите текст").toLowerCase();
+		str = str.split('');
+
+		function lit(result, text, i, arr) {
+			var vowels = {а:'', о:'', и:'', е:'', ё:'', э:'', ы:'', у:'', ю:'', я:''};
+			
+			if(text in vowels) {
+				result += 1;
+			} else result;
+	 		return result;
+		}
+
+		alert(`Во введенной строке находится количество букв: ${str.reduce(lit, 0)}.`);
+		
+
+	})();
+
+
+
+
+	</script>
+
+	
+</body>
+</html>
