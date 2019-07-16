@@ -13,23 +13,31 @@
 
 
 
+		
+(function() {
+
 		function lit(text) {
 			var vowels = {а:'', о:'', и:'', е:'', ё:'', э:'', ы:'', у:'', ю:'', я:''};
 			text = text.toLowerCase();
 			text = text.split('');
-			var vowArr = [];
+			var count = 0;
 
 			text.forEach(vowelsArr);
 
 			function vowelsArr(item, i, array) {
-				if(item in vowels) 
-					vowArr.push(item);
+				if(item in vowels) {
+					count += 1;
+				} else 
+					count;
 			}
 
-			return vowArr.length;
+			return count;
+			
 		}
 
 		alert(`Во введенной строке находится количество букв: ${lit( prompt("Введите текст") )}.`);
+		
+})();	
 		
 		
 	</script>
