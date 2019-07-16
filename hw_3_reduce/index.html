@@ -10,12 +10,16 @@
 		
 
 
-	(function(){
+	
 
+(function(){
 
-		
-		var str = prompt("Введите текст").toLowerCase();
+	function doStr(str) {
+		str = str.toLowerCase();
 		str = str.split('');
+		var res = str.reduce(lit, 0);
+		
+		
 
 		function lit(result, text, i, arr) {
 			var vowels = {а:'', о:'', и:'', е:'', ё:'', э:'', ы:'', у:'', ю:'', я:''};
@@ -26,10 +30,13 @@
 	 		return result;
 		}
 
-		alert(`Во введенной строке находится количество букв: ${str.reduce(lit, 0)}.`);
-		
+		return res;
 
-	})();
+	}
+		
+		alert(`Во введенной строке находится количество букв: ${ doStr(prompt("Введите текст") )}.`);
+
+})();
 
 
 
