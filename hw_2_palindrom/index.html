@@ -17,18 +17,19 @@
 					
 			var res = palindrom(text);
 			return res;
+			
+			function palindrom(string) {
+				if (string.length <= 1) {
+					return true;
+				} else if (string[0] === string[string.length - 1]) {
+					return palindrom(string.slice(1, -1));
+				} else 
+					return false;
+			}
+
+		}
+
 		
-		}
-
-		function palindrom(string) {
-			if (string.length <= 1) {
-				return true;
-			} else if (string[0] === string[string.length - 1]) {
-				return palindrom(string.slice(1, -1));
-			} else 
-				return false;
-		}
-
 		treatment( prompt('Ввведите текст') ) ? alert(`Фраза палиндром`) : alert (`Фраза не палиндром`);
 })();	
 
