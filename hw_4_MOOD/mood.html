@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>MOOD</title>
+</head>
+<body>
+
+	<script>
+
+    "use strict";
+
+    function randomDiap(n,m) {
+            return Math.floor(Math.random()*(m-n+1))+n;
+    }
+
+    function mood(colorsCount) {
+        var colors=[ '', 'красный', 'оранжевый', 'жёлтый', 'зелёный', 'голубой', 'синий', 'фиолетовый' ];
+
+        console.log( 'цветов: ' + colorsCount );
+            var colorNameObj = {};
+            do {
+		        var n=randomDiap(1,7);
+		        colorNameObj[ colors[n] ] = " 1";
+            } while (Object.keys(colorNameObj).length !== colorsCount);
+            
+
+            console.log( Object.keys(colorNameObj) );
+    }
+
+    mood(3);
+
+</script> 
+
+	
+</body>
+</html>

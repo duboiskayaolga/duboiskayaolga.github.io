@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>MOOD</title>
+</head>
+<body>
+
+    <button id="ent">Ввод информации о напитке</button>
+    <button id="get">Получение информации о напитке</button>
+    <button id="del">Удаление информации о напитке</button>
+    <button id="list">Перечень всех напитков напитке</button>
+
+
+	<script>
+    "use strict";
+
+    var btnEnter = document.querySelector("#ent");
+    var btnGetInf = document.querySelector("#get");
+    var btnDelInf = document.querySelector("#del");
+    var btnList = document.querySelector("#list");
+
+    btnEnter.onclick = enterInf; 
+    btnGetInf.onclick = getInf;
+
+
+    function enterInf() {
+        var nameDrinks;
+        var infDrinks = {};
+
+
+        do {
+            nameDrinks = prompt("Введите название напитка");
+            infDrinks.nam = nameDrinks;
+            // console.log(drinkStorage)
+        } while (!nameDrinks);
+
+        var alc = confirm("Напиток алкогольный? Если напиток безалкогольный - нажмите 'Отмена'");
+        infDrinks['alcohol'] = (alc === true) ? "да" : "нет";
+        // console.log(infDrinks.alcohol);
+
+
+        do {
+          var doDrinks = prompt("Введите рецепт приготовления напитка");
+          infDrinks.recept = doDrinks;
+        } while (!doDrinks);
+        // drinkStorage.addValue(nameDrinks, infDrinks);
+
+            // console.log(infDrinks);
+            drinkStorage.addValue(nameDrinks, infDrinks);
+            console.log(drinkStorage.getKeys());
+    };
+
+
+    function getInf() {
+        var quest = prompt("О каком напитке Вы хотите узнать");
+        if (quest && quest in drinkStorage) {
+            // var getObj = drinkStorage[quest].getValue(alcohol);
+            console.log(drinkStorage[quest]);
+
+
+            alert(`Напиток: ${quest} 
+                    Алкогольный  `)
+        } else {
+            alert('Такого напитка нет');
+        }
+    }
+
+
+
+
+
+
+    function HashStorage() {
+        var self = this;
+
+
+
+        self.addValue = function(key, value) {
+            self[key] = [value];
+        };
+
+        self.getValue = function(key) {
+           return  self[key];
+        };
+
+        self.deleteValue = function(key) {
+            if (self[key]) {
+                return (delete self[key])
+            } else {
+                return false;
+            }
+        };
+
+        self.getKeys = function() {
+            return Object.keys(self);
+        }
+
+    }
+
+    var drinkStorage = new HashStorage;
+    // console.log(drinkStorage);
+    // drinkStorage.addValue("Ola", "kfhl");
+    // console.log(drinkStorage.getKeys());
+    // console.log(drinkStorage.getValue("Ola"));
+    // console.log(drinkStorage.deleteValue("Ola"));
+    // console.log(drinkStorage.getValue("Ola"));
+    // console.log(drinkStorage.f)
+    // console.log(drinkStorage);
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script> 
+
+	
+</body>
+</html>
