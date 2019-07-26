@@ -32,31 +32,24 @@
         do {
             nameDrinks = prompt("Введите название напитка");
             infDrinks.nam = nameDrinks;
-            // console.log(drinkStorage)
         } while (!nameDrinks);
 
         var alc = confirm("Напиток алкогольный? Если напиток безалкогольный - нажмите 'Отмена'");
         infDrinks['alcohol'] = (alc === true) ? "да" : "нет";
-        // console.log(infDrinks.alcohol);
 
 
         do {
           var doDrinks = prompt("Введите рецепт приготовления напитка");
           infDrinks.recept = doDrinks;
         } while (!doDrinks);
-        // drinkStorage.addValue(nameDrinks, infDrinks);
 
-            // console.log(infDrinks);
             drinkStorage.addValue(nameDrinks, infDrinks);
-            console.log(drinkStorage.getKeys());
     };
 
 
     function getInf() {
         var quest = prompt("О каком напитке Вы хотите узнать");
         if (quest && quest in drinkStorage) {
-            // var getObj = drinkStorage[quest].getValue(alcohol);
-            console.log(drinkStorage[quest]);
 
 
             alert(`Напиток: ${quest} 
@@ -99,15 +92,7 @@
     }
 
     var drinkStorage = new HashStorage;
-    // console.log(drinkStorage);
-    // drinkStorage.addValue("Ola", "kfhl");
-    // console.log(drinkStorage.getKeys());
-    // console.log(drinkStorage.getValue("Ola"));
-    // console.log(drinkStorage.deleteValue("Ola"));
-    // console.log(drinkStorage.getValue("Ola"));
-    // console.log(drinkStorage.f)
-    // console.log(drinkStorage);
-
+  
 
 
 
