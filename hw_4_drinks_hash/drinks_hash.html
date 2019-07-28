@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>drink_hash</title>
+</head>
+<body>
+
+    <button id="ent">Ввод информации о напитке</button>
+    <button id="get">Получение информации о напитке</button>
+    <button id="del">Удаление информации о напитке</button>
+    <button id="list">Перечень всех напитков напитке</button>
+
+
+	<script>
+    "use strict";
+
+    var btnEnter = document.querySelector("#ent");
+    var btnGetInf = document.querySelector("#get");
+    var btnDelInf = document.querySelector("#del");
+    var btnList = document.querySelector("#list");
+
+    btnEnter.onclick = enterInf; 
+    btnGetInf.onclick = getInf;
+    btnDelInf.onclick = delDrink;
+    btnList.onclick = function() {alert(`список всех напитков: ${drinkStorage.getKeys()}`) };
+
+
+    function enterInf() {
+        var nameDrinks;
+
+
+        do {
+            nameDrinks = prompt("Введите название напитка");
+        } while (!nameDrinks);
+
+        var alc = confirm("Напиток алкогольный? Если напиток безалкогольный - нажмите 'Отмена'");
+        var alcohol = (alc === true) ? "да" : "нет";
+
+
+        do {
+          var doDrinks = prompt("Введите рецепт приготовления напитка");
+          var recept = doDrinks;
+        } while (!doDrinks);
+
+        drinkStorage.addValue(nameDrinks, {"алкогольный" : [alcohol], "рецепт" : [recept]});
+    };
+
+
+    function getInf() {
+        var quest = prompt("О каком напитке Вы хотите узнать");
+        if ( quest && drinkStorage.getValue([quest]) ) {
+            alert(`Напиток: ${quest} 
+Алкогольный ${drinkStorage.getValue([quest])["алкогольный"]} 
+Рецепт: ${drinkStorage.getValue([quest])["рецепт"]}`);
+
+        } else {
+            alert('Такого напитка нет');
+        }
+    };
+
+
+
+    function delDrink() {
+        var delQuest = prompt("какой напиток хотите удалить?")
+        if ( drinkStorage.deleteValue([delQuest]) ) {
+            alert("напиток удален");
+        } else {
+            alert("Такого напитка нет в списке");
+        }
+    };
+
+
+
+
+    function HashStorage() {
+        var self = this;
+        var story = {};
+
+
+
+        self.addValue = function(key, value) {
+            story[key] = value;
+        };
+
+        self.getValue = function(key) {
+           return story[key];
+        };
+
+        self.deleteValue = function(key) {
+            if (story[key]) {
+                return (delete story[key])
+            } else {
+                return false;
+            }
+        };
+
+        self.getKeys = function() {
+            return Object.keys(story);
+        }
+    };
+
+    var drinkStorage = new HashStorage;
+    
+
+
+
+
+
+
+
+
+
+
+
+
+</script> 
+
+	
+</body>
+</html>
