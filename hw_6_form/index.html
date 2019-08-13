@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id = "content">
+	текст
+	<form action="http://fe.it-academy.by/TestForm.php">
+		
+		
+	</form>
+	</div>
+
+
+
+	<script>
+	"use strict";
+
+	var formDef1=
+		[
+			{label:'Название сайта:',kind:'longtext',name:'sitename'},
+			{label:'URL сайта:',kind:'longtext',name:'siteurl'},
+			{label:'Посетителей в сутки:',kind:'number',name:'visitors'},
+			{label:'E-mail для связи:',kind:'shorttext',name:'email'},
+			{label:'Рубрика каталога:',kind:'combo',name:'division',
+				variants:[{text:'здоровье',value:1},{text:'домашний уют',value:2},{text:'бытовая техника',value:3}]},
+			{label:'Размещение:',kind:'radio',name:'payment',
+				variants:[{text:'бесплатное',value:1},{text:'платное',value:2},{text:'VIP',value:3}]},
+			{label:'Разрешить отзывы:',kind:'check',name:'votes'},
+			{label:'Описание сайта:',kind:'memo',name:'description'},
+			{label:'Опубликовать:',kind:'submit'},
+		];
+
+	var formDef2 =
+		[
+			{label:'Фамилия:',kind:'longtext',name:'lastname'},
+			{label:'Имя:',kind:'longtext',name:'firstname'},
+			{label:'Отчество:',kind:'longtext',name:'secondname'},
+			{label:'Возраст:',kind:'number',name:'age'},
+			{label:'Зарегистрироваться:',kind:'submit'},
+		];
+
+	function createElem(obj) {
+
+		var divCont = document.getElementById('content');
+		var newDiv = document.createElement("form");
+
+		for(var i = 0; i < obj.length; i++) {
+			var paragraf = document	.createElement("p");
+			var textForm = document.createElement("label");
+			var textAdd = document.createTextNode(obj[i].label);
+
+			switch (obj[i].kind) {
+				case "longtext":
+					var formKind = document.createElement("input");
+					formKind.setAttribute("type", obj[i].kind);
+					formKind.setAttribute("name", obj[i].name);
+				break;
+
+
+				case "number":
+					var formKind = document.createElement("input");
+					formKind.setAttribute("type", obj[i].kind);
+					formKind.setAttribute("name", obj[i].name);
+				break;
+
+
+
+				case "shorttext":
+					var formKind = document.createElement("input");
+					formKind.setAttribute("type", obj[i].kind);
+					formKind.setAttribute("name", obj[i].name);
+				break;
+
+
+				case "combo":
+					var formKind = document.createElement("select");
+					formKind.setAttribute("type", obj[i].kind);
+					formKind.setAttribute("name", obj[i].name);
+						for(var g = 0; g < obj[i].variants.length; g++) {
+							var variant = document.createElement("option");
+							variant.setAttribute("value", obj[i].variants[g].value);
+							var textAddVar = document.createTextNode(obj[i].variants[g].text);
+
+							variant.appendChild(textAddVar);
+							formKind.appendChild(variant);
+						}
+				break;
+
+
+
+				case "radio":
+					var formKind = document.createElement("label");
+
+						for(var g = 0; g < obj[i].variants.length; g++) {
+							var radioInput = document.createElement("input");
+							radioInput.setAttribute("type", obj[i].kind);
+							radioInput.setAttribute("name", obj[i].name);
+							radioInput.setAttribute("id", obj[i].variants[g].value);
+							radioInput.setAttribute("value", obj[i].variants[g].value);
+
+							var radioText = document.createElement("label");
+							radioText.setAttribute("for", obj[i].variants[g].value);
+							var textAddVar = document.createTextNode(obj[i].variants[g].text);
+
+							radioText.appendChild(textAddVar);
+							formKind.appendChild(radioInput);
+							formKind.appendChild(radioText);
+						}
+
+				break;
+
+				
+
+				case "check":
+					var formKind = document.createElement("input");
+					formKind.setAttribute("type", "checkbox");
+					formKind.setAttribute("name", obj[i].name);
+				break;
+
+
+				
+				case "memo":
+					var formKind = document.createElement("div");
+					var textAreaForm = document.createElement("textarea");
+					textAreaForm.setAttribute("type", obj[i].kind);
+					textAreaForm.setAttribute("name", obj[i].name);
+					formKind.appendChild(textAreaForm);
+				break;
+
+
+
+				case "submit":
+					var formKind = document.createElement("input");
+					formKind.setAttribute("type", obj[i].kind);
+					formKind.setAttribute("value", "Ok");
+					// var textSubmit = document.createTextNode("Ok");
+					// formKind.appendChild(textSubmit);
+					// formKind.setAttribute("name", obj[i].name);
+				break;
+
+
+
+			}
+
+
+			textForm.appendChild(textAdd);
+			paragraf.appendChild(textForm);
+			paragraf.appendChild(formKind);
+			newDiv.appendChild(paragraf);
+
+
+		}
+
+		divCont.appendChild(newDiv);
+
+
+	}
+	createElem(formDef1);
+	createElem(formDef2);
+
+
+
+
+
+
+
+
+	</script>
+	
+</body>
+</html>
