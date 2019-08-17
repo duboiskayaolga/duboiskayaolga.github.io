@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div id = "content">
+	
+	<form action="http://fe.it-academy.by/TestForm.php">
+		<p>Для внесения вашего сайта в каталог, заполните форму:</p>
+
+		<p>
+			<label>Разработчики:</label>
+			<input type="text" name="person" id="persons" >
+			<label id = "mistake_person" class = "nomistake">Поле должно быть заполнено</label>
+		</p>
+		
+		<p>
+			<label>Название сайта:</label>
+			<input type="text" name="sitename" id="sitename">
+			<label id = "mistake_sitename" class = "nomistake">Поле должно быть заполнено</label>
+		</p>
+
+		<p>
+			<label>URL сайта:</label>
+			<input type="text" name="siteurl" id="url">
+			<label id = "mistake_siteurl" class = "nomistake">Поле должно быть заполнено</label>
+		</p>
+
+		<p>
+			<label>Дата запуска сайта:</label>
+			<input type="text" name="datesite" id="date">
+			<label id = "mistake_datesite" class = "nomistake">Поле должно быть заполнено</label>
+		</p>
+
+		<p>
+			<label>Посетителей в сутки:</label>
+			<input type="text" name="visitors" id="visitors">
+			<label id = "mistake_visitors" class = "nomistake">Поле должно быть заполнено</label>
+		</p>
+		
+		<p>
+			<label>E-mail для связи:</label>
+			<input type="text" name="adress" id="adress">
+			<label id = "mistake_adress" class = "nomistake">Поле должно быть заполнено</label>
+		</p>
+				
+		<p>
+			<label>Рубрика каталога:</label>
+			<select name="list" id="listcatalog" >
+			<option value="0" class = "select-variant">выберите вариант</option>
+			<option value="1">бытовая техника</option>
+			<option value="2">косметлогия</option>
+			<option value="3">строительные материалы</option>
+			</select>
+			<label id = "mistake_list" class = "nomistake">Вы должны выбрать вариант</label>
+		</p>
+
+		<p>
+			<div>
+				<label>Pазмещение</label>
+				<input type="radio" name="1" id="radio1" value = "1">
+				<label for = "radio1">бесплатное</label>
+				<input type="radio" name="1" id="radio2" value = "2">
+				<label for = "radio2">платное</label>
+				<input type="radio" name="1" id="radio3" value = "3">
+				<label for = "radio3">VIP</label>
+				<label id = "mistake_1" class = "nomistake">Вы должны выбрать вариант</label>
+				<label id = "mistake_2" class = "nomistake">Вы должны выбрать вариант</label>
+				<label id = "mistake_3" class = "nomistake">Вы должны выбрать вариант</label>
+			</div>
+		</p>
+
+		<p>
+			<label>Разрешить отзывы:</label>
+			<input type="checkbox" name="check" id="check" >
+			<label id = "mistake_check" class = "nomistake">Согласие не получено</label>
+		</p>
+
+		<p>
+			<label>Описание:</label>
+			<input type="textarea" name="description" id="description">
+			<label id = "mistake_description" class = "nomistake">Поле должно быть заполнено</label>
+		</p>
+		
+		<p>
+			<!-- <label>Описание:</label> -->
+			<input type="submit" name="description" id="button" value = "Опубликовать">
+		</p>	
+		
+		
+	</form>
+	</div>
+
+
+
+	<script>
+	"use strict";
+	var person = document.querySelector("#persons");
+	var siteName = document.querySelector("#sitename");
+	var siteUrl = document.querySelector("#url");
+	var siteDate = document.querySelector("#date");
+	var siteVisitors = document.querySelector("#visitors");
+	var siteImlAdress = document.querySelector("#adress");
+	var siteCatalog = document.querySelector("#listcatalog");
+	var siteAgreу = document.querySelector("#check");
+	var siteDiscription = document.querySelector("#description");
+	var radio1 = document.querySelector("#radio1");
+	var radio2 = document.querySelector("#radio2");
+	var radio3 = document.querySelector("#radio3");
+	var btn = document.querySelector("#button");
+
+
+
+
+	person.addEventListener("blur", checkResult);
+	siteName.addEventListener("blur", checkResult);
+	siteUrl.addEventListener("blur", checkResult);
+	siteDate.addEventListener("blur", checkResult);
+	siteVisitors.addEventListener("blur", checkResult);
+	siteImlAdress.addEventListener("blur", checkResult);
+	siteDiscription.addEventListener("blur", checkResult);
+
+
+	siteAgreу.addEventListener("change", checkResultAgree);
+
+	siteCatalog.addEventListener("blur", checkResultCatalog);
+	siteAgreу.addEventListener("blur", checkResult);
+	btn.addEventListener("click", checkAll);
+
+
+
+	function checkResultAgree(EO) {
+		EO = EO || window.event;
+		var box = EO.target;
+		var nameId = `mistake_${box.name}`;
+		var redError = document.getElementById(nameId);
+
+		if(!box.checked) {
+			redError.setAttribute("class", "mistake");
+			// console.log("не прошло проверку");
+		} else {
+			redError.setAttribute("class", "nomistake");
+			
+			// console.log("display= none");
+		}
+		console.log(box.value);
+	}
+
+
+	function checkResultCatalog(EO) {
+		EO = EO || window.event;
+		var select = EO.target;
+		var nameId = `mistake_${select.name}`;
+		var redError = document.getElementById(nameId);
+		
+		if(select.value == 0) {
+			redError.setAttribute("class", "mistake");
+			// EO.preventDefault();
+			// console.log("не прошло проверку");
+		} else {
+			redError.setAttribute("class", "nomistake");
+			
+			// console.log("display= none");
+		}
+	}
+
+
+
+
+
+	function checkResult(EO) {
+		EO = EO || window.event;
+		var inpt = EO.target;
+		var nameId = `mistake_${inpt.name}`;
+		
+		var redError = document.getElementById(nameId);
+		
+		if(!inpt.value) {
+			redError.setAttribute("class", "mistake");
+			console.log("не прошло проверку");
+			// EO.preventDefault();
+			// return false;
+		} else {
+			redError.setAttribute("class", "nomistake");
+			// return true;
+			// console.log("display= none");
+		}
+	}
+
+
+
+
+
+	function checkAll(EO) {
+		EO = EO || window.event;
+
+// Зашла в тупик с отправкой формы. Не могу остановить отправку и получить из обработчика true или false.
+
+		var result = person.onclick = checkResult(this);
+		console.log(result)
+		
+		if (result == false) {
+			// EO.preventDefault();
+			EO.preventDefault();
+			// console
+		} console.log("jr");
+		// siteName.addEventListener("blur", checkResult);
+		// siteUrl.addEventListener("blur", checkResult);
+		// siteDate.addEventListener("blur", checkResult);
+		// siteVisitors.addEventListener("blur", checkResult);
+		// siteImlAdress.addEventListener("blur", checkResult);
+		// siteDiscription.addEventListener("blur", checkResult);
+
+
+		// siteAgreу.addEventListener("change", checkResultAgree);
+
+		// siteCatalog.addEventListener("blur", checkResultCatalog);
+		// siteAgreу.addEventListener("blur", checkResult);
+
+		
+	}
+
+
+
+	</script>
+	
+</body>
+</html>
