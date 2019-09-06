@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>drag & drops</title>
+</head>
+<body>
+	<!-- <div style = "height: 1000px; width: 59px">	</div> -->
+	<img src = "6313010-1000-1454591873-2_(1).jpg" style = "height: 150px; width: auto;" alt="">
+	<img src = "gory_kartinki_1_18113930____1.jpg" alt="">
+	<img src = "img1439-e1526448611734_______3.jpg" alt="">
+
+
+
+	<script>
+	"use strict";
+	
+
+
+	var constX; // переменная для вычисления координат перемещения картинки.
+	var constY; // переменная для вычисления координат перемещения картинки.
+	var thingMove = null; // переменная для хранения значения о перетаскиваемом объекте.
+
+
+	window.onload = posImg; // запускаем считывание координат с изображени только после загрузки всей страницы.
+
+	function posImg () {		//считывает координаты и присваетвает им position: absolut
+
+		var imgs = document.getElementsByTagName('img');
+
+		for(var i = imgs.length - 1; i >= 0 ; i--) {
+			var posLeft = imgs[i].offsetLeft;
+			var posTop = imgs[i].offsetTop;
+
+			imgs[i].style.position = "absolute";
+			imgs[i].style.left = posLeft + "px";
+			imgs[i].style.top = posTop + "px";
+
+
+
+			// console.log(" загрузилась стр. и считались картинки");
+			
+		}
+
+		window.addEventListener("mousedown", downImg); 
+
+	}
+
+	function downImg (EO) { 	
+		EO = EO || window.event;
+		thingMove = EO.target;
+		var pageX = EO.pageX;
+		var pageY = EO.pageY;
+		var posImgTop = thingMove.offsetTop;
+		var posImgLeft = thingMove.offsetLeft;
+		constX = pageX - posImgLeft; // вычисляем координаты точки относительно угла картинки.
+		constY = pageY - posImgTop;
+		
+
+		// console.log("сработало нажатие");
+		window.addEventListener("mousemove", moveImg); 
+		window.addEventListener("mouseup", moveUp); 
+
+
+	}
+
+
+	function moveImg(EO) {
+		EO = EO || window.event;
+		var pageX = EO.pageX;
+		var pageY = EO.pageY;
+		thingMove.style.top = (pageY - constY) + "px";
+		thingMove.style.left = (pageX - constX) + "px";
+		
+		// console.log("Движение");
+
+
+	}
+
+	function moveUp(EO) {
+		// EO = EO || window.event;
+		// window.removeEventListener("mousedown", downImg);
+		window.removeEventListener("mousemove", moveImg);
+		thingMove = null;
+
+		// console.log("удалились обработчики");
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</script>
+	
+</body>
+</html>
