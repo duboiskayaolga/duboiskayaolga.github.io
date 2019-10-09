@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>drag & drops</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="container">
+		
+	</div>
+
+
+
+	<script>
+	"use strict";
+	
+
+	
+	let footField = {
+		left: null, //координаты поля в пространстве после его позиционирования по середине страницы
+		top: null,
+		right: null,
+		bottom: null,
+
+		height: 400, //высота поля
+		width: 600, //ширина поля
+
+
+	}
+
+
+
+
+	let ball = {			//описание мяча
+		// width: 30,
+		radius: 15,
+		posX: null,
+		posY: null,
+		speedX: 0,			//Скорость по оси х
+		speedY: 0,		//Скорость по оси у
+	
+		update: function() {
+			let ballDiv = document.querySelector(".foot-ball");
+			// console.log(rocket);
+			if (ballDiv) {
+				ballDiv.style.left = (this.posX) - this.radius + "px";
+				ballDiv.style.top = (this.posY) - this.radius + "px";
+				
+			} else {
+				console.log("не работает")
+			};
+			
+
+		}
+
+	}
+
+
+
+
+
+
+	let rocketBlue = {					// ОПИСАНИЕ СИНЕЙ РАКЕТКИ
+		width: 10,
+		height: 50,
+		posX: 0,
+		posY: null,
+		speedY: 1,
+
+		update: function() {
+			let rocket = document.querySelector(".rocket-blue");
+
+				rocket.style.left = this.posX + "px";
+				rocket.style.top = this.posY + "px";
+				
+			
+			
+
+		}
+	}
+
+
+
+
+
+
+	let rocketGreen = {					// ОПИСАНИЕ ЗЕЛЕНОЙ РАКЕТКИ
+		width: 10,
+		height: 50,
+		posX: 0,
+		posY: 0,
+		speedY: 1,
+		// acceldY: 1,
+
+		update: function() {
+			let rocket = document.querySelector(".rocket-green");
+			// console.log(rocket);
+				rocket.style.left = this.posX + "px";
+				rocket.style.top = this.posY + "px";
+			
+			
+
+		}
+	}
+	
+
+	let scoreTable = {
+		teamGreen: 0,		//количество голов, которые забил красный игрок
+		teamBlue: 0,		//количество голов, которые забил синий игрок
+		
+		update: function() {
+			let table = document.querySelector(".table");
+			table.textContent = `${this.teamGreen} : ${this.teamBlue}`;
+		}
+	}
+	
+
+
+
+	function createField(heightField, widthField) {
+
+
+		let bigContainer = document.querySelector(".container"); 
+		
+		let btn = document.createElement("input");		//кнопка,по нажатию будет запускать игру
+			btn.setAttribute("type", "submit");
+			btn.setAttribute("value", "Старт");
+
+
+
+		let score = document.createElement("div");		//табло для счета игры
+			score.setAttribute("class", "table");
+			score.textContent = `${scoreTable.teamGreen} : ${scoreTable.teamBlue}`;
+			
+			score.style.display = "block";
+			// score.style.textAlign = "center";
+			
+
+
+		let field = document.createElement("div"); //  Игровое поле
+			field.setAttribute("class", "field");
+			field.style.width = widthField + 'px';
+			field.style.height = heightField + 'px';
+			
+
+
+		
+
+		bigContainer.appendChild(btn);
+		bigContainer.appendChild(score);
+		bigContainer.appendChild(field);
+
+
+		footField.left = field.offsetLeft; //вычисляем координаты поля, чтобы спозиционировать ракетки
+		footField.right = field.getBoundingClientRect().right; //вычислили правую сторону поля.
+		footField.top = field.getBoundingClientRect().top;
+		footField.bottom = field.getBoundingClientRect().bottom;
+	
+		
+//создаем ракетки
+		let rocketBlueDiv = document.createElement("div"); // синяя ракетка
+			rocketBlueDiv.style.width = rocketBlue.width + 'px';
+			rocketBlueDiv.style.height = rocketBlue.height + 'px';
+			rocketBlueDiv.setAttribute("class", "rocket-blue") ;
+			
+			rocketBlue.posX = footField.left;
+			rocketBlue.posY = footField.top;
+			// console.log(rocketBlue.posY);
+			field.appendChild(rocketBlueDiv);
+			rocketBlue.update();
+
+		let rocketGreenDiv = document.createElement("div"); // зеленая ракетка
+			rocketGreenDiv.style.width = rocketBlue.width + 'px';
+			rocketGreenDiv.style.height = rocketBlue.height + 'px';
+			rocketGreenDiv.setAttribute("class", "rocket-green") ;
+			
+			rocketGreen.posX = footField.right - rocketGreen.width;
+			rocketGreen.posY = footField.bottom - rocketGreen.height;
+			// console.log(rocketGreen.posY);
+
+			field.appendChild(rocketGreenDiv);
+			rocketGreen.update();
+
+//создаем мяч
+		let footBall = document.createElement("div");
+			footBall.style.width = (ball.radius * 2) + "px";
+			footBall.style.height = (ball.radius * 2)+ "px";
+			footBall.setAttribute("class", "foot-ball");
+			ball.posX = footField.right - (widthField / 2); 
+			ball.posY = footField.bottom - (heightField / 2); 
+			// console.log(ball.posX);
+			// console.log(ball.posY);
+
+			field.appendChild(footBall);
+			ball.update();
+
+
+
+
+
+// вешаем обработчики 
+		btn.addEventListener("click", start);
+
+
+
+
+
+
+
+
+
+	}
+
+//рисуем всю вьюшку 
+	createField(footField.height, footField.width);
+
+	var RAF=
+        // находим, какой метод доступен
+        window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        // ни один не доступен
+        // будем работать просто по таймеру
+        function(callback)
+            { window.setTimeout(moveBall, 1000 / 60); }
+        ;
+
+    function start() {
+		ball.posX = footField.right - (footField.width / 2); 
+		ball.posY = footField.bottom - (footField.height / 2); 
+    	RAF(moveBall);
+    	RAF(rocketMove);
+		ball.speedX = randomDiap(-0.5, 0.5);	//Рандомно выбираем направление движения
+		ball.speedY = randomDiap(-0.5, 0.5);
+
+		//каждый раз, при обновлении сраницы, вызываем функцию, которая позиционирует мяч.
+    	// requestAnimationFrame(moveBall);	//
+    }
+
+
+	function moveBall(EO) {
+
+		// console.log("moveBall X" + ball.posX);
+		// console.log("moveBall Y" + ball.posY);
+
+		// ball.speedX = 0.5;
+		// ball.speedY = 0.1;
+		
+		ball.posX = ball.posX + ball.speedX;
+		ball.posY = ball.posY + ball.speedY;
+		// console.log(rocketBlue.posY + " pos Y");
+		// console.log(rocketBlue.posX + " pos X");
+
+		 // if(ball.posY - ball.radius >= rocketBlue.posY && 
+		// console.log(footField.bottom + " - координаты низа");
+		 if(ball.posY - ball.radius >= rocketBlue.posY && 
+		 	ball.posY <= (rocketBlue.posY + rocketBlue.height) && 
+		 	ball.posX - ball.radius <= (rocketBlue.posX + rocketBlue.width)) {
+
+			ball.speedX = -ball.speedX;
+			ball.posX = footField.left + rocketBlue.width + ball.radius + ball.speedX;
+
+			// return false;
+		 
+
+
+		}  else if (ball.posY - ball.radius >= rocketGreen.posY && 
+		 	ball.posY <= (rocketGreen.posY + rocketGreen.height) && 
+		 	ball.posX + ball.radius >= (rocketGreen.posX)) {
+
+			ball.speedX = -ball.speedX;
+			ball.posX = footField.right - rocketGreen.width - ball.radius + ball.speedX;
+		 	
+			
+
+		}  else if(ball.posY + ball.radius >= footField.bottom) {
+			// console.log("что-то пошло не так")
+
+			ball.speedY = -ball.speedY;
+			ball.posY = footField.bottom - ball.radius + ball.speedY;
+
+		} else if(ball.posY - ball.radius <= footField.top) {
+			ball.speedY = -ball.speedY;
+			ball.posY = footField.top + ball.radius	 + ball.speedY;
+			
+		} else if (ball.posX + ball.radius >= footField.right) {
+			ball.speedX = -ball.speedX;
+			// ball.speedX = -ball.speedX;
+			ball.posX = footField.right - ball.radius + ball.speedX;
+			// break;
+			console.log("гол");
+
+			scoreTable.teamBlue +=1;
+			scoreTable.update();
+			return false;
+
+		} else if(ball.posX - ball.radius <= footField.left) {
+			ball.speedX = -ball.speedX;
+			ball.posX = footField.left + ball.radius + ball.speedX;
+
+			console.log("гол");
+
+			scoreTable.teamGreen +=1;
+			scoreTable.update();
+
+
+			return false;
+
+		}
+		
+
+		
+
+		// console.log("moveBall X измененный" + ball.posX);
+		// console.log("moveBall Y измененный" + ball.posY);
+		ball.update();
+
+
+    	RAF(moveBall);
+
+
+
+
+		// rocketGreen.addEventListener("click", )
+	}
+
+
+
+//функция движения ракеток
+	function rocketMove() {
+		document.addEventListener("keydown", startMove);
+
+		// RAF(startMove);
+
+		// document.addEventListener("keyup", stopMove);
+
+		// function stopMove(EO) {
+		// 	document.removeEventListener("keydown", startMove);
+			
+		// }
+
+	}
+
+
+		function startMove(EO) {
+			EO = EO || window.event;
+			console.log(EO.code);
+
+			if(EO.code === "ShiftLeft") {
+
+				rocketBlue.posY -= rocketBlue.speedY;
+				(rocketBlue.posY >= footField.top) ? rocketBlue.update() : rocketBlue.posY = footField.top;
+			} else if(EO.code === "ControlLeft") {
+				rocketBlue.posY = rocketBlue.posY + rocketBlue.speedY;
+				rocketBlue.posY + rocketBlue.height <= footField.bottom ? rocketBlue.update() : rocketBlue.posY = footField.bottom - rocketBlue.height;
+
+			} else if(EO.code === "ArrowUp") {
+				rocketGreen.posY -= rocketGreen.speedY;
+				(rocketGreen.posY >= footField.top) ? rocketGreen.update() : rocketGreen.posY = footField.top;
+
+			} else if(EO.code === "ArrowDown") {
+				rocketGreen.posY = rocketGreen.posY + rocketGreen.speedY;
+				rocketGreen.posY + rocketGreen.height <= footField.bottom ? rocketGreen.update() : rocketGreen.posY = footField.bottom - rocketGreen.height;
+
+			} 
+		}
+
+// функция для вычисления рандомных чисел
+	function randomDiap(n, m) {					
+		return Math.floor(Math.random() * (m - n + 1) + n);
+	}
+
+
+
+
+		// console.log(field.left + " и " + field.right);
+
+
+
+
+
+
+
+
+
+
+
+	</script>
+	
+</body>
+</html>

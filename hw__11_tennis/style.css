@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+	width: 80%;
+	/*height: 30px;*/
+	margin: 0 auto;
+	background: grey;
+}
+
+.field {
+	/*box-sizing: content-box;*/
+	/*border: 2px solid red;*/
+	background-color: yellow;
+	margin: 0 auto;
+
+}
+
+.rocket-blue {
+	background-color: blue;
+	position: absolute;
+
+}
+
+.rocket-green {
+	background-color: green;
+	position: absolute;
+
+}
+
+.foot-ball {
+	background-color: red;
+	position: absolute;
+	border-radius: 50%;
+}
